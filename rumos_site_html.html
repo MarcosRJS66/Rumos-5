@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rumos Transf & Tour - Seu destino começa aqui</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Poppins', sans-serif; margin: 0; padding: 0; position: relative; }
+        header { background: #0077b6; color: white; padding: 20px 0; text-align: center; animation: fadeIn 1s ease-in; position: relative; }
+        nav { background: #023e8a; text-align: center; padding: 10px 0; animation: fadeIn 1.5s ease-in; }
+        nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: 600; }
+        .menu-toggle { display: none; font-size: 30px; color: white; cursor: pointer; position: absolute; top: 20px; right: 20px; }
+        .banner { background: url('banner.jpg') center/cover no-repeat; height: 400px; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; animation: fadeIn 2s ease-in; }
+        section { padding: 40px 20px; max-width: 1200px; margin: auto; opacity: 0; transform: translateY(30px); transition: all 1s ease; }
+        section.visible { opacity: 1; transform: translateY(0); }
+        section h2 { opacity: 0; transform: translateY(-20px); transition: all 0.6s ease-in-out; }
+        section.visible h2 { opacity: 1; transform: translateY(0); }
+        footer { background: #0077b6; color: white; text-align: center; padding: 20px 0; margin-top: 40px; animation: fadeIn 3s ease-in; }
+        .btn-whatsapp { background: #25d366; padding: 10px 20px; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block; margin-top: 10px; transition: transform 0.3s, background 0.3s; }
+        .btn-whatsapp:hover { background: #1ebe5d; transform: scale(1.05); }
+        .whatsapp-fixo, .destinos-fixo { position: fixed; border-radius: 50%; box-shadow: 0 2px 10px rgba(0,0,0,0.3); z-index: 1000; animation: pulse 2s infinite; }
+        .whatsapp-fixo { bottom: 20px; right: 20px; background: #25d366; padding: 15px; }
+        .whatsapp-fixo img { width: 40px; height: 40px; }
+        .destinos-fixo { bottom: 90px; right: 20px; background: #0077b6; padding: 12px; overflow: hidden; }
+        .destinos-fixo img { width: 35px; height: 35px; transition: transform 0.6s ease, opacity 0.6s ease; }
+        .btn-topo { position: fixed; bottom: 160px; right: 20px; background: #023e8a; color: white; padding: 12px 14px; border-radius: 50%; font-size: 18px; display: none; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.3); cursor: pointer; }
+
+        /* Carrossel */
+        .carousel { position: relative; max-width: 100%; margin: 40px auto; overflow: hidden; border-radius: 10px; }
+        .carousel img { width: 100%; display: none; opacity: 0; transition: opacity 1s ease-in-out; }
+        .carousel img.active { display: block; opacity: 1; }
+        .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; padding: 10px; cursor: pointer; border-radius: 50%; }
+        .carousel-btn.left { left: 10px; }
+        .carousel-btn.right { right: 10px; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            nav { display: none; flex-direction: column; }
+            nav.show { display: flex; }
+            nav a { margin: 10px 0; }
+            .banner { height: 250px; font-size: 1.5rem; padding: 20px; text-align: center; }
+        }
+
+        @media (max-width: 480px) {
+            header h1 { font-size: 1.5rem; }
+            .banner { font-size: 1.2rem; height: 200px; }
+            section { padding: 20px 10px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Rumos Transf & Tour</h1>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <nav id="menu">
+        <a href="#sobre">Sobre</a>
+        <a href="#servicos">Serviços</a>
+        <a href="#destinos">Destinos</a>
+        <a href="#contato">Contato</a>
+    </nav>
+</header>
+
+<div class="banner">
+    Bem-vindo a Florianópolis!
+</div>
+
+<section id="sobre">
+    <h2>Sobre Nós</h2>
+    <p>Somos a Rumos Transf & Tour, uma agência especializada em turismo receptivo nos Ingleses, Florianópolis. Oferecemos experiências inesquecíveis para quem quer explorar a magia da Ilha da Magia!</p>
+</section>
+
+<div class="carousel">
+    <button class="carousel-btn left" onclick="prevSlide()">&#10094;</button>
+    <button class="carousel-btn right" onclick="nextSlide()">&#10095;</button>
+    <img src="https://images.unsplash.com/photo-1597687216746-94d55b5efd16?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1200" class="active" alt="Praia dos Ingleses">
+    <img src="https://images.unsplash.com/photo-1584380736980-fcdb72d89374?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1200" alt="Jurerê Internacional">
+    <img src="https://images.unsplash.com/photo-1584380939477-8c943e3fd090?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1200" alt="Lagoa da Conceição">
+</div>
+
+<section id="servicos">
+    <h2>Serviços</h2>
+    <ul>
+        <li>Transfers do aeroporto para hotéis e pousadas</li>
+        <li>City tours guiados</li>
+        <li>Passeios para praias, trilhas e pontos turísticos</li>
+        <li>Transporte para eventos</li>
+    </ul>
+</section>
+
+<section id="destinos">
+    <h2>Destinos</h2>
+    <p>Conheça as principais praias e atrações: Praia dos Ingleses, Jurerê Internacional, Lagoa da Conceição, Santo Antônio de Lisboa, Ribeirão da Ilha e muito mais!</p>
+</section>
+
+<section id="contato">
+    <h2>Contato</h2>
+    <p>Fale com a nossa equipe pelo WhatsApp ou solicite um orçamento!</p>
+
+    <form onsubmit="return enviarWhatsApp(event)" class="form-orcamento">
+        <input type="text" id="nome" placeholder="Seu nome" required>
+        <input type="email" id="email" placeholder="Seu e-mail" required>
+        <textarea id="mensagem" placeholder="Mensagem" rows="4" required></textarea>
+        <button type="submit">Solicitar Orçamento</button>
+    </form>
+
+    <a class="btn-whatsapp" href="https://wa.me/5548988788879" target="_blank">Chamar no WhatsApp</a>
+</section>
+
+<a class="whatsapp-fixo" href="https://wa.me/5548988788879" target="_blank">
+    <img src="https://cdn-icons-png.flaticon.com/512/124/124034.png" alt="WhatsApp">
+</a>
+
+<a class="destinos-fixo" href="#destinos">
+    <img src="https://cdn-icons-png.flaticon.com/512/854/854894.png" alt="Destinos">
+</a>
+
+<div class="btn-topo" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</div>
+
+<footer>
+    <p>&copy; 2025 Rumos Transf & Tour. Todos os direitos reservados.</p>
+</footer>
+
+<script>
+function toggleMenu() {
+    document.getElementById('menu').classList.toggle('show');
+}
+
+function revealOnScroll() {
+    document.querySelectorAll('section').forEach(section => {
+        if (section.getBoundingClientRect().top < window.innerHeight - 100) {
+            section.classList.add('visible');
+        }
+    });
+}
+window.addEventListener('scroll', () => {
+    revealOnScroll();
+    document.querySelector('.btn-topo').style.display = window.scrollY > 300 ? 'block' : 'none';
+});
+window.addEventListener('load', revealOnScroll);
+
+// Carrossel
+let currentSlide = 0;
+const slides = document.querySelectorAll('.carousel img');
+function showSlide(index) {
+    slides.forEach((slide, i) => {
+        slide.classList.remove('active');
+        if (i === index) slide.classList.add('active');
+    });
+}
+function nextSlide() {
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+}
+function prevSlide() {
+    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+    showSlide(currentSlide);
+}
+setInterval(nextSlide, 3000);
+
+// Alternância ícone destinos
+const destinosBtn = document.querySelector('.destinos-fixo img');
+const icons = [
+  "https://cdn-icons-png.flaticon.com/512/854/854894.png",
+  "https://cdn-icons-png.flaticon.com/512/194/194938.png"
+];
+let iconIndex = 0;
+setInterval(() => {
+  destinosBtn.style.opacity = '0';
+  setTimeout(() => {
+    iconIndex = (iconIndex + 1) % icons.length;
+    destinosBtn.src = icons[iconIndex];
+    destinosBtn.style.transform = 'rotate(360deg)';
+    destinosBtn.style.opacity = '1';
+    setTimeout(() => destinosBtn.style.transform = 'rotate(0deg)', 600);
+  }, 300);
+}, 3000);
+
+// Formulário via WhatsApp
+function enviarWhatsApp(e) {
+    e.preventDefault();
+    const nome = document.getElementById('nome').value;
+    const email = document.getElementById('email').value;
+    const mensagem = document.getElementById('mensagem').value;
+    const texto = `Olá! Me chamo ${nome}. Meu e-mail é ${email}. Gostaria de informações: ${mensagem}`;
+    const url = `https://wa.me/5548988788879?text=${encodeURIComponent(texto)}`;
+    window.open(url, '_blank');
+    return false;
+}
+</script>
+
+</body>
+</html>
